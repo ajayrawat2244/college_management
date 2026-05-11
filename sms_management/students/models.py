@@ -29,3 +29,25 @@ class Student(TenantModel):
             self.tenant = get_current_tenant()
 
         super().save(*args, **kwargs)
+
+class Enquiry(TenantModel):
+
+    name = models.CharField(max_length=100)
+
+    email = models.EmailField()
+
+    phone = models.CharField(max_length=20)
+
+    interested_course = models.ForeignKey(
+        "academy.Course",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    message = models.TextField(blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Student
+from .models import Student, Enquiry
 
+admin.site.register(Enquiry)
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):

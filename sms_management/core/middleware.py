@@ -1,9 +1,16 @@
 from django.utils.deprecation import MiddlewareMixin
-from tenants.models import College
+#from tenants.models import College
 from core.utils import set_current_tenant
 
 
 class TenantMiddleware(MiddlewareMixin):
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+
+        from tenants.models import College
 
     def process_request(self, request):
 
