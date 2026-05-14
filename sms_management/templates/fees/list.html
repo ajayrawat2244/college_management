@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Fees | SMS{% endblock %}
+{% block page_title %}Fees{% endblock %}
+{% block page_subtitle %}Fee records, installments, wallet balances, and payment progress.{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2>Fee Records</h2>
+    <a class="btn btn-primary" href="#">Add Fee Record</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Student</th><th>Academic Year</th><th>Total</th><th>Paid</th><th>Pending</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for fee in fee_records %}
+          <tr>
+            <td>{{ fee.student.user.name }}</td>
+            <td>{{ fee.academic_year }}</td>
+            <td>₹{{ fee.total_fees }}</td>
+            <td>₹{{ fee.paid_amount }}</td>
+            <td>₹{{ fee.pending_amount }}</td>
+            <td><span class="badge {% if fee.is_fully_paid %}success{% else %}warning{% endif %}">{% if fee.is_fully_paid %}Paid{% else %}Pending{% endif %}</span></td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="6" class="empty-state">No fee records found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

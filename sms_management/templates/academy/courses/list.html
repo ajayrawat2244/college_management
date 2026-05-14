@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Courses | SMS{% endblock %}
+{% block page_title %}Courses{% endblock %}
+{% block page_subtitle %}Course catalog, categories, subject mappings, and language settings.{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2>Courses</h2>
+    <a class="btn btn-primary" href="#">Add Course</a>
+  </div>
+  <div class="cards-grid">
+    {% for course in courses %}
+      <article class="info-card">
+        <h3>{{ course.name }}</h3>
+        <p>{{ course.description|default:'No description provided.' }}</p>
+        <div class="meta-row">
+          <span class="badge">{{ course.category.name|default:'No category' }}</span>
+          <span class="badge">{{ course.primary_language }}</span>
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty-state">No courses found.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

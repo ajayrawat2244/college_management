@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Fee Detail | SMS{% endblock %}
+{% block page_title %}Fee Detail{% endblock %}
+{% block page_subtitle %}Record summary, installments, and student wallet usage.{% endblock %}
+{% block content %}
+<div class="grid-2">
+  <section class="card">
+    <h2>{{ fee_record.student.user.name }}</h2>
+    <div class="detail-list">
+      <div><span>Total Fees</span><strong>₹{{ fee_record.total_fees }}</strong></div>
+      <div><span>Paid Amount</span><strong>₹{{ fee_record.paid_amount }}</strong></div>
+      <div><span>Pending Amount</span><strong>₹{{ fee_record.pending_amount }}</strong></div>
+      <div><span>Academic Year</span><strong>{{ fee_record.academic_year }}</strong></div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Installments</h2>
+    <div class="stack-list">
+      {% for installment in fee_record.installments.all %}
+        <div class="stack-item"><span>Installment {{ installment.installment_no }} - {{ installment.title }}</span><strong>₹{{ installment.amount }}</strong></div>
+      {% empty %}
+        <div class="empty-state">No installments added.</div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

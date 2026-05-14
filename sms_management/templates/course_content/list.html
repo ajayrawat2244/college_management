@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Course Content | SMS{% endblock %}
+{% block page_title %}Course Content{% endblock %}
+{% block page_subtitle %}Published learning assets for a course.{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2>{{ course.name }}</h2>
+    <a class="btn btn-primary" href="#">Add Content</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Title</th><th>Type</th><th>Order</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for content in contents %}
+          <tr>
+            <td>{{ content.title }}</td>
+            <td>{{ content.content_type }}</td>
+            <td>{{ content.order }}</td>
+            <td><span class="badge {% if content.is_published %}success{% else %}muted{% endif %}">{% if content.is_published %}Published{% else %}Hidden{% endif %}</span></td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4" class="empty-state">No published content found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Tenant Settings | SMS{% endblock %}
+{% block page_title %}Tenant Settings{% endblock %}
+{% block page_subtitle %}College profile, subdomain, and workspace metadata.{% endblock %}
+{% block content %}
+<section class="card narrow-card">
+  <div class="detail-list">
+    <div><span>College Name</span><strong>{{ tenant.name }}</strong></div>
+    <div><span>Subdomain</span><strong>{{ tenant.subdomain }}</strong></div>
+    <div><span>Created At</span><strong>{{ tenant.created_at }}</strong></div>
+  </div>
+</section>
+{% endblock %}

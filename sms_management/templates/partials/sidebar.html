@@ -1,0 +1,52 @@
+<aside class="sidebar">
+  <div class="brand-card">
+    <div class="brand-mark">SMS</div>
+    <div>
+      <div class="brand-title">Student Management</div>
+      <div class="brand-subtitle">Multi-tenant college portal</div>
+    </div>
+  </div>
+
+  <nav class="nav-group">
+    <a class="nav-link {% if request.resolver_match.url_name == 'dashboard_view' %}active{% endif %}" href="#">Dashboard</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'student_list' %}active{% endif %}" href="#">Students</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}" href="#">Courses</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'fee_list' %}active{% endif %}" href="#">Fees</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'grading_scheme_list' %}active{% endif %}" href="#">Grading</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'enquiry_list' %}active{% endif %}" href="#">Enquiries</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'exam_list' %}active{% endif %}" href="#">Exams</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'curriculum_list' %}active{% endif %}" href="#">Curriculum</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'tenant_settings' %}active{% endif %}" href="#">Tenant Settings</a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="muted">Signed in as</div>
+<div class="sidebar-user">
+
+    {% if request.user.is_authenticated %}
+
+        <div class="user-info">
+
+            <h4>
+                {{ request.user.get_full_name|default:request.user.username }}
+            </h4>
+
+            <p>{{ request.user.email }}</p>
+
+        </div>
+
+    {% else %}
+
+        <div class="user-info">
+
+            <h4>Guest</h4>
+
+            <p>Please login</p>
+
+        </div>
+
+    {% endif %}
+
+</div>    <a class="logout-link" href="#">Logout</a>
+  </div>
+</aside>

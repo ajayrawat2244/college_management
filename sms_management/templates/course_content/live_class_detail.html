@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Live Class | SMS{% endblock %}
+{% block page_title %}Live Class Detail{% endblock %}
+{% block page_subtitle %}Join link, schedule, and class metadata.{% endblock %}
+{% block content %}
+<section class="card narrow-card">
+  <h2>{{ live_class.title }}</h2>
+  <div class="detail-list">
+    <div><span>Course</span><strong>{{ live_class.course.name }}</strong></div>
+    <div><span>Platform</span><strong>{{ live_class.platform }}</strong></div>
+    <div><span>Starts At</span><strong>{{ live_class.starts_at }}</strong></div>
+    <div><span>Status</span><strong>{{ live_class.get_status_display }}</strong></div>
+  </div>
+  <a class="btn btn-primary" href="{{ live_class.meeting_url }}">Join Class</a>
+</section>
+{% endblock %}

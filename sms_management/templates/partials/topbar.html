@@ -1,0 +1,15 @@
+<header class="topbar">
+  <div>
+    <p class="eyebrow">{% block page_eyebrow %}College Admin Panel{% endblock %}</p>
+    <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+    <p class="page-subtitle">{% block page_subtitle %}Manage academic operations across a tenant securely and cleanly.{% endblock %}</p>
+  </div>
+
+  <div class="topbar-actions">
+    <div class="tenant-pill">
+      <span class="tenant-dot"></span>
+      {{ request.tenant.name|default:"No tenant detected" }}
+    </div>
+    <a class="btn btn-outline" href="#">Switch account</a>
+  </div>
+</header>

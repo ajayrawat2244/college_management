@@ -8,7 +8,13 @@ class CourseCategory(TenantModel):
 
     def __str__(self):
         return self.name
-
+"""
+    def clean(self):
+        if self.category.tenant != self.tenant:
+            raise ValidationError(
+                "Category tenant mismatch."
+            )
+"""
 
 class Subject(TenantModel):
     name = models.CharField(max_length=100)
@@ -21,6 +27,13 @@ class Subject(TenantModel):
 
     def __str__(self):
         return f"{self.name} ({self.code})"
+    
+    def clean(self):
+        if self.category.tenant != self.tenant:
+            raise ValidationError(
+                "Category tenant mismatch."
+            )
+
 
 
 class Course(TenantModel):
@@ -59,3 +72,9 @@ class Course(TenantModel):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.category.tenant != self.tenant:
+            raise ValidationError(
+                "Category tenant mismatch."
+            )

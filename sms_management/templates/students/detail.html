@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Student Detail | SMS{% endblock %}
+{% block page_title %}Student Detail{% endblock %}
+{% block page_subtitle %}Profile, fee record, wallet, and academic information.{% endblock %}
+{% block content %}
+<div class="grid-2">
+  <section class="card">
+    <h2>{{ student.user.name }}</h2>
+    <p class="muted">{{ student.user.email }}</p>
+    <div class="detail-list">
+      <div><span>Enrollment No.</span><strong>{{ student.enrollment_no }}</strong></div>
+      <div><span>Enrollment Date</span><strong>{{ student.enrollment_date }}</strong></div>
+      <div><span>Tenant</span><strong>{{ student.tenant.name }}</strong></div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Wallet</h2>
+    <div class="stat-inline"><span>Balance</span><strong>₹{{ student.wallet.balance|default:'0' }}</strong></div>
+    <div class="stat-inline"><span>Fee pending</span><strong>₹{{ student.fee_record.pending_amount|default:'0' }}</strong></div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Content Detail | SMS{% endblock %}
+{% block page_title %}Content Detail{% endblock %}
+{% block page_subtitle %}Media link, PDF notes, and student reviews.{% endblock %}
+{% block content %}
+<div class="grid-2">
+  <section class="card">
+    <h2>{{ content.title }}</h2>
+    <p>{{ content.description }}</p>
+    <div class="detail-list">
+      <div><span>Type</span><strong>{{ content.content_type }}</strong></div>
+      <div><span>Order</span><strong>{{ content.order }}</strong></div>
+      <div><span>Published</span><strong>{% if content.is_published %}Yes{% else %}No{% endif %}</strong></div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Reviews</h2>
+    <div class="stack-list">
+      {% for review in reviews %}
+        <div class="stack-item"><span>{{ review.student.user.name }} • {{ review.rating }}/5</span><strong>{{ review.review|default:'No comment' }}</strong></div>
+      {% empty %}
+        <div class="empty-state">No reviews yet.</div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

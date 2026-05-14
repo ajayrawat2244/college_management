@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from academics.models import Course
+from academy.models import Course
 from course_content.models import CourseContent, ContentReview, LiveClass
 from students.models import Student
 

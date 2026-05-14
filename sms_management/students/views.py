@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Student
 
+@login_required
 def student_list(request):
 
-    students = Student.objects.for_tenant(request.tenant)
+    students = Student.objects.filter(
+        tenant=request.tenant
+    )
 
-    return render(request, "students/list.html", {
-        "students": students
-    })
+    context = {
+        'students': students
+    }
+
+    return render(request, 'students/list.html', context)

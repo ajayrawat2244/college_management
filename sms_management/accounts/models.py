@@ -36,13 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     # Tenant relation (important)
-    tenant = models.ForeignKey(
-        "tenants.College",
-        on_delete=models.CASCADE,
-        related_name="users",
-        null=True,
-        blank=True
-    )
+    tenant = models.ForeignKey("tenants.College", on_delete=models.CASCADE,related_name="users", null=True,blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

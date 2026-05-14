@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Course Detail | SMS{% endblock %}
+{% block page_title %}Course Detail{% endblock %}
+{% block page_subtitle %}Course metadata, assigned subjects, published contents, and live classes.{% endblock %}
+{% block content %}
+<div class="grid-2">
+  <section class="card">
+    <h2>{{ course.name }}</h2>
+    <p>{{ course.description }}</p>
+    <div class="detail-list">
+      <div><span>Category</span><strong>{{ course.category.name|default:'—' }}</strong></div>
+      <div><span>Primary Language</span><strong>{{ course.primary_language }}</strong></div>
+      <div><span>Multilanguage</span><strong>{% if course.is_multilanguage %}Yes{% else %}No{% endif %}</strong></div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Subjects</h2>
+    <div class="chips">
+      {% for subject in course.subjects.all %}
+        <span class="chip">{{ subject.name }}</span>
+      {% empty %}
+        <span class="empty-state">No subjects mapped.</span>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

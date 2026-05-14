@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Grading | SMS{% endblock %}
+{% block page_title %}Grading Schemes{% endblock %}
+{% block page_subtitle %}Tenant-specific score bands and grade labels.{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2>Grading Schemes</h2>
+    <a class="btn btn-primary" href="#">Add Scheme</a>
+  </div>
+  <div class="cards-grid">
+    {% for scheme in grading_schemes %}
+      <article class="info-card">
+        <h3>{{ scheme.name }}</h3>
+        <p>{{ scheme.description|default:'No description provided.' }}</p>
+        <span class="badge {% if scheme.is_active %}success{% else %}muted{% endif %}">{% if scheme.is_active %}Active{% else %}Inactive{% endif %}</span>
+      </article>
+    {% empty %}
+      <div class="empty-state">No grading scheme configured.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
