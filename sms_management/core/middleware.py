@@ -1,3 +1,82 @@
+from django.http import Http404
+from django.utils.deprecation import MiddlewareMixin
+
+from tenants.models import College
+from core.utils import (
+    set_current_tenant,
+    clear_current_tenant
+)
+
+
+class TenantMiddleware(MiddlewareMixin):
+
+    PUBLIC_PATHS = (
+        "/admin/",
+        "/accounts/login/",
+        "/accounts/logout/",
+        "/static/",
+        "/media/",
+    )
+
+    def process_request(self, request):
+
+        request.tenant = None
+
+        clear_current_tenant()
+
+        host = request.get_host().split(":")[0].lower()
+
+        # Local development support
+        if host in ["127.0.0.1", "localhost"]:
+
+            tenant = College.objects.filter(
+                is_active=True
+            ).first()
+
+            if tenant:
+                request.tenant = tenant
+                set_current_tenant(tenant)
+
+            return
+
+        parts = host.split(".")
+
+        if len(parts) < 2:
+            return
+
+        subdomain = parts[0]
+
+        if subdomain == "www":
+            return
+
+        try:
+
+            tenant = College.objects.get(
+                subdomain=subdomain,
+                is_active=True
+            )
+
+            request.tenant = tenant
+
+            set_current_tenant(tenant)
+
+        except College.DoesNotExist:
+
+            raise Http404("Tenant not found")
+
+    def process_response(self, request, response):
+
+        clear_current_tenant()
+
+        return response
+
+    def process_exception(self, request, exception):
+
+        clear_current_tenant()
+
+        return None
+
+"""
 from django.utils.deprecation import MiddlewareMixin
 from django.http import Http404
 from django.core.cache import cache
@@ -33,11 +112,11 @@ class TenantMiddleware(MiddlewareMixin):
         parts = host.split(".")
 
         """
-        Examples:
+    #    Examples:
 
-        college1.localhost
-        college1.example.com
-        """
+     #   college1.localhost
+    #    college1.example.com
+"""
 
         # Minimum subdomain requirement
         if len(parts) < 2:
@@ -97,3 +176,6 @@ class TenantMiddleware(MiddlewareMixin):
         set_current_tenant(None)
 
         return None
+
+
+"""

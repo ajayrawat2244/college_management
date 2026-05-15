@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-cp&^7am@q31_@4_zw&q#fx4mwjj5h-0lskv@w2go0z_dlw0zku
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".localhost"]
 
 
 # Application definition
@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'core.middleware.TenantMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #"core.context_processors.tenant_context",
     
 ]
 
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.tenant_context',
             ],
         },
     },
@@ -146,3 +148,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = "/"
+
+AUTHENTICATION_BACKENDS = [
+    "accounts.backends.TenantAuthenticationBackend",
+]

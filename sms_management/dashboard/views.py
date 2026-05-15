@@ -1,4 +1,4 @@
-from django.db.models import Sum, Count
+from django.db.models import Sum, Value, DecimalField
 from django.db.models.functions import Coalesce
 
 from rest_framework.permissions import IsAuthenticated
@@ -18,7 +18,7 @@ def dashboard_context(tenant):
         "tenant": tenant,
         "total_admissions": Student.objects.filter(tenant=tenant).count(),
         "total_enquiries": Enquiry.objects.filter(tenant=tenant).count(),
-        "total_revenue": FeeRecord.objects.filter(tenant=tenant).aggregate(total=Coalesce(Sum("paid_amount"), 0))["total"],
+        "total_revenue": FeeRecord.objects.filter(tenant=tenant).aggregate(total=Coalesce(Sum("paid_amount"), Value(0, output_field=DecimalField())))["total"],
         "recent_students": recent_students,
     }
 

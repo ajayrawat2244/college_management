@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TenantDashboardAPIView, dashboard_view
+from .views import dashboard_view, TenantDashboardAPIView
 
 urlpatterns = [
     path("api/dashboard/", TenantDashboardAPIView.as_view(), name="tenant_dashboard_api"),
