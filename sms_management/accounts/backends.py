@@ -4,20 +4,29 @@ from accounts.models import User
 class TenantAuthenticationBackend(BaseBackend):
 
     def authenticate(self, request, username=None, password=None, **kwargs):
+
         if request is None:
             return None
 
         tenant = getattr(request, "tenant", None)
 
-        if tenant is None:
+        try:
+            if tenant:
+                user = User.objects.get(
+                    email=username,
+                    tenant=tenant
+                )
+            else:
+                # fallback for superadmin/admin login
+                user = User.objects.get(
+                    email=username,
+                    is_superuser=True
+                )
+
+        except User.DoesNotExist:
             return None
 
-        try:
-            user = User.objects.get(
-                email=username,
-                tenant=tenant
-            )
-        except User.DoesNotExist:
+        except User.MultipleObjectsReturned:
             return None
 
         if user.check_password(password) and user.is_active:

@@ -1,6 +1,6 @@
 <header class="topbar">
   <div>
-    <p class="eyebrow">{% block page_eyebrow %}College Admin Panel{% endblock %}</p>
+    <p class="eyebrow">{% block page_eyebrow %}{{request.tenant.name}} Admin Panel{% endblock %}</p>
     <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
     <p class="page-subtitle">{% block page_subtitle %}Manage academic operations across a tenant securely and cleanly.{% endblock %}</p>
   </div>

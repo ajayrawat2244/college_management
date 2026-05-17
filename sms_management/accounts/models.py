@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ("teacher", "Teacher"),
         ("student", "Student"),
     )
-
+    name = models.CharField(max_length=255)
     email = models.EmailField()
     tenant = models.ForeignKey("tenants.College", null=True, blank=True, on_delete=models.SET_NULL)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="student")

@@ -8,9 +8,9 @@
   </div>
 
   <nav class="nav-group">
-    <a class="nav-link {% if request.resolver_match.url_name == 'dashboard_view' %}active{% endif %}" href="#">Dashboard</a>
-    <a class="nav-link {% if request.resolver_match.url_name == 'student_list' %}active{% endif %}" href="#">Students</a>
-    <a class="nav-link {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}" href="#">Courses</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'dashboard_view' %}active{% endif %}" href="/">Dashboard</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'student_list' %}active{% endif %}" href="/students">Students</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'course_list' %}active{% endif %}" href="/courses">Courses</a>
     <a class="nav-link {% if request.resolver_match.url_name == 'fee_list' %}active{% endif %}" href="#">Fees</a>
     <a class="nav-link {% if request.resolver_match.url_name == 'grading_scheme_list' %}active{% endif %}" href="#">Grading</a>
     <a class="nav-link {% if request.resolver_match.url_name == 'enquiry_list' %}active{% endif %}" href="#">Enquiries</a>
@@ -28,7 +28,7 @@
         <div class="user-info">
 
             <h4>
-                {{ request.user.get_full_name|default:request.user.username }}
+                {{ request.user.name|default:request.user.email }}
             </h4>
 
             <p>{{ request.user.email }}</p>
